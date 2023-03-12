@@ -10,5 +10,7 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
         IEnumerable<Processo> ListarProcessos();
 
         int FinalizarProcesso(int id);
+
+        IEnumerable<Processo> ListarProcessosEmAberto();
     }
 }

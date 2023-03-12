@@ -12,5 +12,7 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
         int FinalizarIndicacao(int id);
 
         IEnumerable<Indicacao> ListarIndicacoesPorProcesso(int idProcesso);
+
+        int ValidarProcessoParaIndicar(int idProcesso);
     }
 }

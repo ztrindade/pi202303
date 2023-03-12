@@ -8,5 +8,6 @@ namespace API_Indicacao_Premiada.Services.Interfaces
         int IncluirPremiacao(DTOFinalizarProcesso processo);
 
         IEnumerable<Premiacao> ListarPremiacoes();
+        IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula);
     }
 }

@@ -24,27 +24,49 @@ namespace API_Indicacao_Premiada.Controllers
                 return BadRequest();
             }
 
-            _indicacaoService.IncluirIndicacao(indicacao);
-
-            return Ok();
+            try
+            {
+                _indicacaoService.IncluirIndicacao(indicacao);
+                return Ok();
+            }
+            catch (InvalidDataException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
         }
 
         [HttpGet]
         [Route("listar")]
         public IActionResult ListarIndicacoes()
         {
-            var ret = _indicacaoService.ListarIndicacoes();
-
-            return Ok(ret);
+            try
+            {
+                var ret = _indicacaoService.ListarIndicacoes();
+                return Ok(ret);
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
         }
 
         [HttpGet]
         [Route("listar/porprocesso/{id}")]
         public IActionResult ListarIndicacoesPorProcesso(int id)
         {
-            var ret = _indicacaoService.ListarIndicacoesPorProcesso(id);
-
-            return Ok(ret);
+            try
+            {
+                var ret = _indicacaoService.ListarIndicacoesPorProcesso(id);
+                return Ok(ret);
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
         }
     }
 }

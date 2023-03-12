@@ -18,7 +18,7 @@ namespace API_Indicacao_Premiada.Repositories
         {
             string comandoSql = string.Format(
                 "INSERT INTO Indicacoes (NomeIndicado,TelefoneIndicado,IdProcesso,MatriculaIndicante,Linkedin,Status) Values('{0}','{1}',{2},'{3}','{4}','Indicado')",
-                indicacao.NomeIndicado, indicacao.TelefoneIndicado, indicacao.IdProcesso, indicacao.MatriculaIndicante,indicacao.Linkedin);
+                indicacao.NomeIndicado, indicacao.TelefoneIndicado, indicacao.IdProcesso, indicacao.MatriculaIndicante, indicacao.Linkedin);
 
             _sqlHelper.AbrirConexao();
             var ret = _sqlHelper.ExecutarComando(comandoSql);
@@ -58,6 +58,17 @@ namespace API_Indicacao_Premiada.Repositories
             _sqlHelper.FecharConexao();
 
             return ret;
+        }
+
+        public int ValidarProcessoParaIndicar(int idProcesso)
+        {
+            string comandoSql = string.Format("SELECT * FROM Processos where Status = 'Em Aberto' AND id = {0}", idProcesso);
+
+            _sqlHelper.AbrirConexao();
+            var ret = _sqlHelper.ExecutarComando<Processo>(comandoSql);
+            _sqlHelper.FecharConexao();
+
+            return ret.Count();
         }
     }
 }

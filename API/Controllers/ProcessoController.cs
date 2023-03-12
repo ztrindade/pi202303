@@ -24,18 +24,45 @@ namespace API_Indicacao_Premiada.Controllers
                 return BadRequest();
             }
 
-            _processoService.IncluirProcesso(processo);
-
-            return Ok();
+            try
+            {
+                _processoService.IncluirProcesso(processo);
+                return Ok();
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
         }
 
         [HttpGet]
         [Route("listar")]
         public IActionResult ListarProcessos()
         {
-            var ret = _processoService.ListarProcessos();
+            try
+            {
+                var ret = _processoService.ListarProcessos();
+                return Ok(ret);
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
+        }
 
-            return Ok(ret);
+        [HttpGet]
+        [Route("listar/iniciados")]
+        public IActionResult ListarProcessosEmAberto()
+        {
+            try
+            {
+                var ret = _processoService.ListarProcessosEmAberto();
+                return Ok(ret);
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
         }
 
         [HttpPost]
@@ -47,9 +74,15 @@ namespace API_Indicacao_Premiada.Controllers
                 return BadRequest();
             }
 
-            var ret = _processoService.FinalizarProcesso(processo);
-
-            return Ok(ret);
+            try
+            {
+                var ret = _processoService.FinalizarProcesso(processo);
+                return Ok(ret);
+            }
+            catch
+            {
+                return StatusCode(500, "Ocorreu um erro interno servidor");
+            }
         }
     }
 }

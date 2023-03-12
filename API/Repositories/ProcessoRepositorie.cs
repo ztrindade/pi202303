@@ -16,8 +16,9 @@ namespace API_Indicacao_Premiada.Repositories
 
         public int IncluirProcesso(DTOIncluirProcesso processo)
         {
-            string comandoSql = string.Format("INSERT INTO Processos (Empresa,Vaga,MatriculaRH,Status,ValorPremiacao) Values('{0}','{1}','{2}','Em Aberto',{3})",
-                processo.Empresa, processo.Vaga, processo.MatriculaRH,processo.ValorPremiacao);
+            string comandoSql = string.Format(@"INSERT INTO Processos (Empresa,Vaga,MatriculaRH,Status,ValorPremiacao)
+                                                Values('{0}','{1}','{2}','Em Aberto',{3})",
+                                                processo.Empresa, processo.Vaga, processo.MatriculaRH, processo.ValorPremiacao);
 
             _sqlHelper.AbrirConexao();
             var ret = _sqlHelper.ExecutarComando(comandoSql);
@@ -29,6 +30,17 @@ namespace API_Indicacao_Premiada.Repositories
         public IEnumerable<Processo> ListarProcessos()
         {
             string comandoSql = "SELECT * FROM Processos";
+
+            _sqlHelper.AbrirConexao();
+            var ret = _sqlHelper.ExecutarComando<Processo>(comandoSql);
+            _sqlHelper.FecharConexao();
+
+            return ret;
+        }
+
+        public IEnumerable<Processo> ListarProcessosEmAberto()
+        {
+            string comandoSql = "SELECT * FROM Processos where Status = 'Em Aberto'";
 
             _sqlHelper.AbrirConexao();
             var ret = _sqlHelper.ExecutarComando<Processo>(comandoSql);

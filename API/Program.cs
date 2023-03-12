@@ -11,14 +11,18 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddScoped<IProcessoService, ProcessoService>();
 builder.Services.AddScoped<IProcessoRepositorie, ProcessoRepositorie>();
 builder.Services.AddScoped<IIndicacaoService, IndicacaoService>();
 builder.Services.AddScoped<IIndicacaoRepositorie, IndicacaoRepositorie>();
-builder.Services.AddScoped<IDBManager, SqlHelper>();
-builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddScoped<IPremiacaoService, PremiacaoService>();
 builder.Services.AddScoped<IPremiacaoRepositorie, PremiacaoRepositorie>();
+
+builder.Services.AddScoped<IDBManager, SqlHelper>();
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
+
 
 var app = builder.Build();
 

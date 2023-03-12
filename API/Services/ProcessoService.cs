@@ -28,6 +28,11 @@ namespace API_Indicacao_Premiada.Services
             return _processoRepositorie.ListarProcessos();
         }
 
+        public IEnumerable<Processo> ListarProcessosEmAberto()
+        {
+            return _processoRepositorie.ListarProcessosEmAberto();
+        }
+
         public int FinalizarProcesso(DTOFinalizarProcesso processo)
         {
             var retProcesso = _processoRepositorie.FinalizarProcesso(processo.IdProcesso);

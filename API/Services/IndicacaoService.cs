@@ -14,9 +14,13 @@ namespace API_Indicacao_Premiada.Services
             _indicacaoRepositorie = IndicacaoRepositorie;
         }
 
-        public int IncluirIndicacao(DTOIncluirIndicacao Indicacao)
+        public int IncluirIndicacao(DTOIncluirIndicacao indicacao)
         {
-            return _indicacaoRepositorie.IncluirIndicacao(Indicacao);
+            var retValidacao = ValidarProcessoParaIndicar(indicacao.IdProcesso);
+            if (retValidacao == 0)
+                throw new InvalidDataException("Processo já finalizado");
+
+            return _indicacaoRepositorie.IncluirIndicacao(indicacao);
         }
 
         public IEnumerable<Indicacao> ListarIndicacoes()
@@ -32,6 +36,11 @@ namespace API_Indicacao_Premiada.Services
         public int FinalizarIndicacao(int id)
         {
             return _indicacaoRepositorie.FinalizarIndicacao(id);
+        }
+
+        public int ValidarProcessoParaIndicar(int idProcesso)
+        {
+            return _indicacaoRepositorie.ValidarProcessoParaIndicar(idProcesso);
         }
     }
 }

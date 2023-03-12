@@ -10,5 +10,7 @@ namespace API_Indicacao_Premiada.Services.Interfaces
         IEnumerable<Processo> ListarProcessos();
 
         int FinalizarProcesso(DTOFinalizarProcesso processo);
+
+        IEnumerable<Processo> ListarProcessosEmAberto();
     }
 }
