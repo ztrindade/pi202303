@@ -1,0 +1,14 @@
+<header class="sticky-top"> 
+    <nav class="navbar navbar-light bg-primary">
+        <div class="container">
+            <a class="navbar-brand">inDica</a>
+            <div *ngIf="user.name">
+                <a class="navbar-brand">{{ user.name }}</a>
+                <i class="fa fa-user-circle"></i>
+            </div>
+            <div *ngIf="user.name">
+                <a (click)="logout()">Logout</a>
+            </div>
+        </div>
+    </nav>
+</header>

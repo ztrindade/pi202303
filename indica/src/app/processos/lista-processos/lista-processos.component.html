@@ -1,0 +1,260 @@
+<app-cabecalho></app-cabecalho>
+
+<div class="container" *ngIf="exibeLista">
+    <div class="row">   
+        <div class="col text-center">
+            <h4>Processos</h4>
+            <span *ngIf="!listaProcessos.length">
+                <h5>Ainda não existem processos</h5> 
+            </span>
+            <span *ngIf="listaProcessos.length">
+                <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Empresa</th>
+                                <th scope="col">Vaga</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Detalhar</th>
+                                <th scope="col">Ação</th>
+                            </tr>
+                        </thead>
+                        <ng-container *ngFor="let processo of listaProcessos; index as i">
+                            <tbody>
+                            <tr>
+                                <td>{{processo.id}}</td>
+                                <td>{{processo.empresa}}</td>
+                                <td>{{processo.vaga}}</td>
+                                <td>
+                                    <i class="fa fa-unlock" *ngIf="processo.aberto"></i>
+                                    <i class="fa fa-lock" *ngIf="!processo.aberto"></i>
+                                </td>
+                                <td>
+                                    <i class="fa fa-info" (click)="detalhaProcesso(processo.id)"></i>
+                                </td>
+                                <td *ngIf="processo.aberto">
+                                    <i class="fa fa-user-plus" 
+                                        *ngIf="podeIndicar"
+                                        (click)="montarIndicacao(processo.id)">
+                                    </i>
+                                    <i class="fa fa-calendar-check-o" 
+                                        *ngIf="podeIncluir"
+                                        (click)="encerraProcesso(processo.id)">
+                                    </i>
+                                </td>
+                                <td *ngIf="!processo.aberto">
+                                    <i class="fa fa-ban" 
+                                        *ngIf="!processo.aberto">
+                                    </i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </ng-container>
+                </table>
+            </span>
+        </div>
+    </div>
+    <div *ngIf="podeIncluir" class="text-center">
+        <button class="btn btn-outline-primary">
+            <a (click)="toggleIncluir()" *ngIf="exibeLista">Adicionar processo</a>
+        </button>
+    </div>
+</div>
+
+<div class="container text-center" *ngIf="exibeIncluir">
+    <h4 class="">Incluir novo processo</h4>
+    <form 
+        class="form mt-4" 
+        (ngSubmit)="incluirProcesso()"
+        #incluirForm="ngForm">
+        <div class="form-group mb-2">
+            <input 
+            class="form-control" 
+            placeholder="Nome da empresa" 
+            type="text" 
+            [(ngModel)]="inputEmpresa" 
+            name="empresa"
+            #campoEmpresa="ngModel"
+            required />
+            <app-mensagem 
+                *ngIf="campoEmpresa.invalid && campoEmpresa.touched"
+                mensagem="Obrigatório informar a empresa">
+            </app-mensagem>
+        </div>
+        <div class="form-group mb-2">
+            <input 
+            class="form-control" 
+            placeholder="Nome da vaga" 
+            type="text"
+            [(ngModel)]="inputVaga"
+            name="vaga" 
+            #campoVaga="ngModel"
+            required />
+            <app-mensagem 
+                *ngIf="campoVaga.invalid && campoVaga.touched"
+                mensagem="Obrigatório informar a vaga">
+            </app-mensagem>
+        </div>
+        <div class="form-group mb-2">
+            <input 
+            class="form-control" 
+            placeholder="Valor da premiação" 
+            type="number"
+            [(ngModel)]="inputValor"
+            name="valor" 
+            #campoValor="ngModel"
+            required />
+            <app-mensagem 
+                *ngIf="campoValor.invalid && campoValor.touched"
+                mensagem="Obrigatório informar a vaga">
+            </app-mensagem>
+        </div>
+        <button 
+            class="btn btn-primary btn-block" 
+            type="submit"
+            [disabled]="incluirForm.invalid">Incluir processo
+        </button>
+    </form>
+    <hr>
+    <div>
+        <i class="fa fa-chevron-left"></i>
+        <span (click)="toggleIncluir()"> Voltar para lista</span>
+    </div>
+</div>
+
+<div class="container text-center" *ngIf="exibeDetalhar">
+    <h4>Detalhamento do processo {{detalhe.id}}</h4>
+    <div class="row">
+        <div class="col">Empresa: {{detalhe.empresa}}</div>
+        <div class="col">Vaga: {{detalhe.vaga}}</div>
+        <div class="col">Premiação: R$ {{detalhe.valor}}</div>
+    </div>
+    <div class="row">
+        <div  *ngIf="detalhe.aberto">
+            <div class="col">Processo em andamento</div>    
+        </div>
+        <div *ngIf="!detalhe.aberto">    
+            <div *ngIf="detalhe.premiado === ''">Processo sem funcionário premiado</div>
+            <div *ngIf="detalhe.premiado !== ''">Premiado: {{detalhe.premiado}}</div>
+        </div>
+    </div>
+    <hr>
+    <div *ngIf="this.detalhe.indicacoes.length > 0">
+    </div>
+        <div *ngIf="this.detalhe.indicacoes.length > 0">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Indicante</th>
+                    <th scope="col">Indicado</th>
+                    <th scope="col">Telefone</th>
+                    <th scope="col">Linkedin</th>
+                    <th scope="col">Situação</th>
+                </tr>
+            </thead>
+            <ng-container *ngFor="let indicacao of detalhe.indicacoes; index as i">
+                <tbody>
+                    <tr>
+                        <td>{{indicacao.indicante}}</td>
+                        <td>{{indicacao.nomeIndicado}}</td>
+                        <td>{{indicacao.telefoneIndicado}}</td>
+                        <td>{{indicacao.linkedin}}</td>
+                        <td *ngIf="indicacao.aceita">
+                            <a class="fa fa-check"></a>
+                        </td>
+                        <td *ngIf="!indicacao.aceita">
+                            <a *ngIf="podeIncluir" 
+                                class="fa fa-calendar-check-o"
+                                (click)="aceitarIndicacao(detalhe.indice, indicacao.sequencial)"
+                            ></a>
+                            <i *ngIf="!podeIncluir" class="fa fa-flag-checkered"></i>
+                        </td>
+                    </tr>    
+                </tbody>
+            </ng-container>
+            </table>
+    </div>
+
+    <div *ngIf="detalhe.aberto">
+        <div *ngIf="podeIncluir">
+            <button class="btn btn-outline-primary">
+                <i class="fa fa-lock"></i> 
+                <a (click)="encerraProcesso(detalhe.id)"> Encerrar Processo</a>
+            </button>
+        </div>
+    </div>
+    <p></p>
+    <div>
+        <button class="btn btn-outline-primary">
+            <i class="fa fa-chevron-left"></i>
+            <a (click)="toggleDetalhar()"> Voltar para lista</a>
+        </button>
+    </div>
+</div>
+
+<div class="container text-center" *ngIf="exibeIndicar">
+    <h4>Indique alguém para participar do processo {{detalhe.id}}</h4>
+    <div class="row">
+        <div class="col">Empresa: {{detalhe.empresa}}</div>
+        <div class="col">Vaga: {{detalhe.vaga}}</div>
+    </div>
+    <form 
+        class="form mt-4" 
+        (ngSubmit)="incluirIndicacao(detalhe.id)"
+        #indicarForm="ngForm">
+        <div class="form-group mb-2">
+            <input 
+            class="form-control" 
+            placeholder="Quem você quer indicar?" 
+            type="text" 
+            [(ngModel)]="inputNomeIndicado" 
+            name="indicado"
+            #campoIndicado="ngModel"
+             />
+            <!-- <app-mensagem 
+                *ngIf="campoIndicado.invalid && campoIndicado.touched"
+                mensagem="Obrigatório informar o nome do indicado">
+            </app-mensagem> -->
+        </div>
+        <div class="form-group mb-2">
+            <input 
+            class="form-control" 
+            placeholder="Qual o telefone de quem você quer indicar?" 
+            type="text" 
+            minlength="8"
+            pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}"
+            [(ngModel)]="inputTelefoneIndicado" 
+            name="indicado"
+            #campoTelefone="ngModel"
+             />
+            <!-- <app-mensagem 
+                *ngIf="campoTelefone.invalid && (campoIndicado.dirty || campoIndicado.touched)"
+                mensagem="Obrigatório informar o telefone do indicado">
+            </app-mensagem> -->
+        </div>
+        <div class="form-group mb-2">
+            <input 
+            class="form-control" 
+            placeholder="Perfil no linkedin (opcional)" 
+            type="text"
+            [(ngModel)]="inputLinkedin"
+            name="linkedin" 
+            #campoLinkedin="ngModel" />
+        </div>
+        <!-- Foi necessário retirara o [disabled]="indicarForm.invalid" -->
+        <button 
+            class="btn btn-primary btn-block" 
+            type="submit"
+            >Confirmar indicação
+        </button>
+    </form>
+    <!-- classe do linkedin: fa fa-linkedin-square -->
+    <hr>
+    <div>
+        <p></p>
+        <button class="btn btn-outline-primary">
+            <i class="fa fa-chevron-left"></i>
+            <a (click)="toggleIndicar()"> Voltar para lista</a>
+        </button>
+    </div>
+</div>
