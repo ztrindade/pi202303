@@ -6,6 +6,8 @@ O Grupo A03 é composto pelos seguintes alunos:
 - Heitor Alexandrino dos Santos Arruda
 - José Roberto Trindade Lima
 
+## Aplicação estática
+
 Instruções para execução da aplicação estática:
 - efetuar o clone do projeto;
 - abrir um prompt de comando na pasta 'indica';
@@ -20,3 +22,5 @@ O projeto estático contém quatro usuários válidos, conforme descrito na sua 
 - fernanda (administradora)
 
 A senha de todos eles é 'teste'. Se for informado um usuário ou senha incorretos, a aplicação exibirá um alerta de credenciais inválidas.
+
+## API 
