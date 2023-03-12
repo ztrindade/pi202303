@@ -26,21 +26,27 @@
                                 <td>{{processo.empresa}}</td>
                                 <td>{{processo.vaga}}</td>
                                 <td>
-                                    <i class="fa fa-unlock" *ngIf="processo.aberto"></i>
-                                    <i class="fa fa-lock" *ngIf="!processo.aberto"></i>
+                                    <i class="fa fa-unlock" 
+                                        data-toggle="tooltip" data-html="true" title="Processo em andamento"
+                                        *ngIf="processo.aberto"></i>
+                                    <i class="fa fa-lock" 
+                                        data-toggle="tooltip" data-html="true" title="Processo encerrado"
+                                        *ngIf="!processo.aberto"></i>
                                 </td>
                                 <td>
-                                    <i class="fa fa-info" (click)="detalhaProcesso(processo.id)"></i>
+                                    <i class="fa fa-info" 
+                                    data-toggle="tooltip" data-html="true" title="Informações do processo"
+                                    (click)="detalhaProcesso(processo.id)"></i>
                                 </td>
                                 <td *ngIf="processo.aberto">
                                     <i class="fa fa-user-plus" 
                                         *ngIf="podeIndicar"
-                                        (click)="montarIndicacao(processo.id)">
-                                    </i>
+                                        data-toggle="tooltip" data-html="true" title="Indicar candidatos"
+                                        (click)="montarIndicacao(processo.id)"></i>
                                     <i class="fa fa-calendar-check-o" 
                                         *ngIf="podeIncluir"
-                                        (click)="encerraProcesso(processo.id)">
-                                    </i>
+                                        data-toggle="tooltip" data-html="true" title="Encerrar processo"
+                                        (click)="encerraProcesso(processo.id)"></i>
                                 </td>
                                 <td *ngIf="!processo.aberto">
                                     <i class="fa fa-ban" 
@@ -56,7 +62,8 @@
     </div>
     <div *ngIf="podeIncluir" class="text-center">
         <button class="btn btn-outline-primary">
-            <a (click)="toggleIncluir()" *ngIf="exibeLista">Adicionar processo</a>
+            <i class="fa fa-plus"></i>
+            <a (click)="toggleIncluir()"> Adicionar processo</a>
         </button>
     </div>
 </div>
@@ -159,30 +166,48 @@
                         <td>{{indicacao.nomeIndicado}}</td>
                         <td>{{indicacao.telefoneIndicado}}</td>
                         <td>{{indicacao.linkedin}}</td>
-                        <td *ngIf="indicacao.aceita">
-                            <a class="fa fa-check"></a>
-                        </td>
-                        <td *ngIf="!indicacao.aceita">
-                            <a *ngIf="podeIncluir" 
-                                class="fa fa-calendar-check-o"
-                                (click)="aceitarIndicacao(detalhe.indice, indicacao.sequencial)"
-                            ></a>
-                            <i *ngIf="!podeIncluir" class="fa fa-flag-checkered"></i>
+                        <td>
+                            <i class="fa fa-thumbs-up" 
+                                data-toggle="tooltip" data-html="true" title="Indicação aceita"
+                                *ngIf="indicacao.aceita"></i>
+                            <div *ngIf="!detalhe.aberto">
+                                <i class="fa fa-thumbs-down" 
+                                data-toggle="tooltip" data-html="true" title="Indicação não aceita"
+                                *ngIf="!indicacao.aceita"></i>
+                            </div>
+                            <div *ngIf="detalhe.aberto">
+                                <div *ngIf="!indicacao.aceita">
+                                    <i *ngIf="podeIncluir" 
+                                        class="fa fa-check-square-o"
+                                        data-toggle="tooltip" data-html="true" title="Aceitar indicação"
+                                        (click)="aceitarIndicacao(detalhe.indice, indicacao.sequencial)"
+                                    ></i>
+                                    <i *ngIf="!podeIncluir" 
+                                        data-toggle="tooltip" data-html="true" title="Indicação em análise"
+                                        class="fa fa-flag-checkered"></i>
+                                </div>
+                            </div>
                         </td>
                     </tr>    
                 </tbody>
             </ng-container>
-            </table>
+        </table>
     </div>
 
     <div *ngIf="detalhe.aberto">
         <div *ngIf="podeIncluir">
             <button class="btn btn-outline-primary">
-                <i class="fa fa-lock"></i> 
+                <i class="fa fa-calendar-check-o"></i> 
                 <a (click)="encerraProcesso(detalhe.id)"> Encerrar Processo</a>
             </button>
         </div>
-    </div>
+        <div *ngIf="!podeIncluir">
+            <button class="btn btn-outline-primary">
+                <i class="fa fa-user-plus"></i>
+                <a (click)="montarIndicacao(detalhe.id)"> Indicar candidatos</a>
+            </button>
+        </div>
+        </div>
     <p></p>
     <div>
         <button class="btn btn-outline-primary">

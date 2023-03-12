@@ -147,6 +147,9 @@ export class ListaProcessosComponent implements OnInit {
       this.inputNomeIndicado = '';
       this.inputTelefoneIndicado = '';
       this.inputLinkedin = ''
+      if (this.exibeDetalhar) {
+        this.toggleDetalhar();
+      }
       this.toggleListar();
     }
 
