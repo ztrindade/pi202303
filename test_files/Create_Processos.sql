@@ -1,0 +1,7 @@
+CREATE TABLE Processos (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Empresa VARCHAR(200) NOT NULL,
+    Vaga VARCHAR(200) NOT NULL,
+    MatriculaRH NVARCHAR(50) NOT NULL,
+    Status VARCHAR(20)
+);

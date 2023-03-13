@@ -28,3 +28,11 @@ A senha de todos eles é 'teste'. Se for informado um usuário ou senha incorret
 Os usuários com perfil padrão podem somente indicar candidatos em processos em andamento. Assim, é necessário logar primeiro com o usuário `fernanda`, para iniciar pelo menos um processo. O usuário `fernanda` pode também aceitar indicações feitas pelos demais usuários e encerrar os processos, com ou sem indicações aprovadas.
 
 ## API 
+Instruções para leevantar o servidor para realizar testes
+- faça o dowload do visual studio para rodar o servidor local iis em sua maquina link:https://visualstudio.microsoft.com/pt-br/vs/.
+- faça o dowload do sql server management studio para rodar o banco de dados link:https://aka.ms/ssmsfullsetup.
+- com os itens anteriores instalados e o projeto clonado em sua maquina, crie um novo bano de dados para teste com o nome a sua escolha.
+- em seu banco de dados crie as três tabelas de teste do qual os scripts estão na pasta test_files neste projeto.
+- crie sua string de conexão e substitua a que esta no appssetings da aplicação("local").
+- após fazer estas configurações roda o iss local no visual studio e deixe ligado para receber comandos do projeto de front. 
+
