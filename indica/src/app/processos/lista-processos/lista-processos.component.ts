@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TokenService } from 'src/app/autenticacao/token.service';
 import { ProcessoService } from '../processo.service';
 import { Indicacao, Processo } from '../processo';
-import { elementAt } from 'rxjs';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-lista-processos',
@@ -24,17 +24,22 @@ export class ListaProcessosComponent implements OnInit {
   inputVaga = '';
   inputValor = 0;
 // Input da indicação
+  novaIndicacaoForm!: FormGroup;
+
   inputIndicante = '';
-  inputNomeIndicado = '';
-  inputTelefoneIndicado = '';
-  inputLinkedin = '';
 
   constructor(
+    private formBuilder: FormBuilder,
     private tokenService: TokenService,
     private processoService: ProcessoService,
     ) { }
 
     ngOnInit(): void {
+      this.novaIndicacaoForm = this.formBuilder.group({
+        linkedin: [''],
+        nome: ['', [Validators.required, Validators.minLength(4)]],
+        telefone: ['', [Validators.required , Validators.minLength(8) , Validators.maxLength(9)]],
+      })
       if (this.tokenService.retornaToken('perfil') === 'adm'){
         this.podeIncluir = true;
       } else {
@@ -95,20 +100,20 @@ export class ListaProcessosComponent implements OnInit {
     }
 
     incluirIndicacao(id: number|undefined) {
+      const novaIndicacao = this.novaIndicacaoForm.getRawValue();
       this.listaProcessos.forEach((processo) => {
         if (processo.id === id) {
+          const auxLinkedin = novaIndicacao.linkedin === '' ? '' : `https://www.linkedin.com/in/${novaIndicacao.linkedin}`;
           const indicacao:Indicacao = {
             aceita: false,
             indicante: this.inputIndicante,
-            linkedin: this.inputLinkedin,
-            nomeIndicado: this.inputNomeIndicado,
-            telefoneIndicado: this.inputTelefoneIndicado,
+            linkedin: auxLinkedin,
+            nomeIndicado: novaIndicacao.nome,
+            telefoneIndicado: novaIndicacao.telefone,
             sequencial: processo.indicacoes.length
           }
           processo.indicacoes.push(indicacao);
-          this.inputLinkedin = '';
-          this.inputNomeIndicado = '';
-          this.inputTelefoneIndicado = '';
+          this.novaIndicacaoForm.reset();
           this.toggleIndicar();
         }
       })
@@ -144,9 +149,6 @@ export class ListaProcessosComponent implements OnInit {
 
     toggleIndicar() {
       this.exibeIndicar = !this.exibeIndicar;
-      this.inputNomeIndicado = '';
-      this.inputTelefoneIndicado = '';
-      this.inputLinkedin = ''
       if (this.exibeDetalhar) {
         this.toggleDetalhar();
       }

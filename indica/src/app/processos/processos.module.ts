@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProcessosRoutingModule } from './processos-routing.module';
 import { ListaProcessosComponent } from './lista-processos/lista-processos.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { CabecalhoModule } from '../componentes/cabecalho/cabecalho.module';
 
@@ -16,6 +16,7 @@ import { CabecalhoModule } from '../componentes/cabecalho/cabecalho.module';
     CommonModule,
     CabecalhoModule,
     FormsModule,
+    ReactiveFormsModule,
     MensagemModule,
     ProcessosRoutingModule
   ]

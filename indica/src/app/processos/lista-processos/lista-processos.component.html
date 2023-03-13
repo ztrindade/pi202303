@@ -41,7 +41,7 @@
                                 <td *ngIf="processo.aberto">
                                     <i class="fa fa-user-plus" 
                                         *ngIf="podeIndicar"
-                                        data-toggle="tooltip" data-html="true" title="Indicar candidatos"
+                                        data-toggle="tooltip" data-html="true" title="Indicar candidato"
                                         (click)="montarIndicacao(processo.id)"></i>
                                     <i class="fa fa-calendar-check-o" 
                                         *ngIf="podeIncluir"
@@ -165,7 +165,9 @@
                         <td>{{indicacao.indicante}}</td>
                         <td>{{indicacao.nomeIndicado}}</td>
                         <td>{{indicacao.telefoneIndicado}}</td>
-                        <td>{{indicacao.linkedin}}</td>
+                        <td>
+                            <a href="{{indicacao.linkedin}}" target="_blank">{{indicacao.linkedin}}</a>
+                        </td>
                         <td>
                             <i class="fa fa-thumbs-up" 
                                 data-toggle="tooltip" data-html="true" title="Indicação aceita"
@@ -204,7 +206,7 @@
         <div *ngIf="!podeIncluir">
             <button class="btn btn-outline-primary">
                 <i class="fa fa-user-plus"></i>
-                <a (click)="montarIndicacao(detalhe.id)"> Indicar candidatos</a>
+                <a (click)="montarIndicacao(detalhe.id)"> Indicar candidato</a>
             </button>
         </div>
         </div>
@@ -223,57 +225,37 @@
         <div class="col">Empresa: {{detalhe.empresa}}</div>
         <div class="col">Vaga: {{detalhe.vaga}}</div>
     </div>
-    <form 
-        class="form mt-4" 
-        (ngSubmit)="incluirIndicacao(detalhe.id)"
-        #indicarForm="ngForm">
+    <form class="form mt-4" [formGroup]="novaIndicacaoForm" (submit)="incluirIndicacao(detalhe.id)">
         <div class="form-group mb-2">
-            <input 
-            class="form-control" 
-            placeholder="Quem você quer indicar?" 
-            type="text" 
-            [(ngModel)]="inputNomeIndicado" 
-            name="indicado"
-            #campoIndicado="ngModel"
-             />
-            <!-- <app-mensagem 
-                *ngIf="campoIndicado.invalid && campoIndicado.touched"
-                mensagem="Obrigatório informar o nome do indicado">
-            </app-mensagem> -->
-        </div>
+            <input type="text" 
+                placeholder="Nome do indicado" 
+                class="form-control"
+                formControlName="nome">
+        </div>    
+        <app-mensagem 
+            *ngIf="novaIndicacaoForm.get('nome')?.touched 
+            && novaIndicacaoForm.get('nome')?.errors"
+            mensagem="Informe o nome com no mínimo 4 caracteres">
+        </app-mensagem>
+            <div class="form-group mb-2">
+            <input type="text" 
+                placeholder="Telefone do indicado" 
+                class="form-control"
+                formControlName="telefone">
+        </div>    
+        <app-mensagem 
+            *ngIf="novaIndicacaoForm.get('telefone')?.touched 
+            && novaIndicacaoForm.get('telefone')?.errors"
+            mensagem="Informe o telefone com 8 ou 9 caracteres">
+        </app-mensagem>
         <div class="form-group mb-2">
-            <input 
-            class="form-control" 
-            placeholder="Qual o telefone de quem você quer indicar?" 
-            type="text" 
-            minlength="8"
-            pattern="[0-9]{2}-[0-9]{5}-[0-9]{4}"
-            [(ngModel)]="inputTelefoneIndicado" 
-            name="indicado"
-            #campoTelefone="ngModel"
-             />
-            <!-- <app-mensagem 
-                *ngIf="campoTelefone.invalid && (campoIndicado.dirty || campoIndicado.touched)"
-                mensagem="Obrigatório informar o telefone do indicado">
-            </app-mensagem> -->
-        </div>
-        <div class="form-group mb-2">
-            <input 
-            class="form-control" 
-            placeholder="Perfil no linkedin (opcional)" 
-            type="text"
-            [(ngModel)]="inputLinkedin"
-            name="linkedin" 
-            #campoLinkedin="ngModel" />
-        </div>
-        <!-- Foi necessário retirara o [disabled]="indicarForm.invalid" -->
-        <button 
-            class="btn btn-primary btn-block" 
-            type="submit"
-            >Confirmar indicação
-        </button>
+            <input type="text" 
+                placeholder="Linkedin (opcional)" 
+                class="form-control"
+                formControlName="linkedin">
+        </div>    
+        <button class="btn btn-primary btn-block" [disabled]="!novaIndicacaoForm.valid">Incluir indicação</button>
     </form>
-    <!-- classe do linkedin: fa fa-linkedin-square -->
     <hr>
     <div>
         <p></p>
