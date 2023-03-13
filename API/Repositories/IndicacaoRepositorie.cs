@@ -60,9 +60,24 @@ namespace API_Indicacao_Premiada.Repositories
             return ret;
         }
 
+        public int FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao)
+        {
+            string comandoSql = string.Format(@"UPDATE Indicacoes SET Status = 'Finalizada'
+                                                where IdProcesso = {0} AND Id <> {1}",
+                                                idProcesso, idIndicacao);
+
+            _sqlHelper.AbrirConexao();
+            var ret = _sqlHelper.ExecutarComando(comandoSql);
+            _sqlHelper.FecharConexao();
+
+            return ret;
+        }
+
         public int ValidarProcessoParaIndicar(int idProcesso)
         {
-            string comandoSql = string.Format("SELECT * FROM Processos where Status = 'Em Aberto' AND id = {0}", idProcesso);
+            string comandoSql = string.Format(@"SELECT * FROM Processos
+                                                where Status = 'Em Aberto' AND id = {0}",
+                                                idProcesso);
 
             _sqlHelper.AbrirConexao();
             var ret = _sqlHelper.ExecutarComando<Processo>(comandoSql);

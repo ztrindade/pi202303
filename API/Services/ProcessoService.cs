@@ -43,7 +43,10 @@ namespace API_Indicacao_Premiada.Services
 
                 if (retIndicacao != 0)
                 {
-                    _premiacaoService.IncluirPremiacao(processo);
+                    var retPremiacao = _premiacaoService.IncluirPremiacao(processo);
+
+                    if (retPremiacao != 0)
+                        _indicacaoService.FinalizarIndicacoesNaoEscolhidas(processo.IdProcesso,processo.IdIndicacao);
                 }
             }
 

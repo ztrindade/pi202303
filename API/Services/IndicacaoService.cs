@@ -42,5 +42,10 @@ namespace API_Indicacao_Premiada.Services
         {
             return _indicacaoRepositorie.ValidarProcessoParaIndicar(idProcesso);
         }
+
+        public int FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao)
+        {
+            return _indicacaoRepositorie.FinalizarIndicacoesNaoEscolhidas(idProcesso, idIndicacao);
+        }
     }
 }

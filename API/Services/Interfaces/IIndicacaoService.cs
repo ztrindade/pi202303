@@ -12,5 +12,8 @@ namespace API_Indicacao_Premiada.Services.Interfaces
         int FinalizarIndicacao(int id);
 
         IEnumerable<Indicacao> ListarIndicacoesPorProcesso(int idProcesso);
+
+        int FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao);
+
     }
 }

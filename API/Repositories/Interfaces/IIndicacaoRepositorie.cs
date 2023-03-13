@@ -14,5 +14,7 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
         IEnumerable<Indicacao> ListarIndicacoesPorProcesso(int idProcesso);
 
         int ValidarProcessoParaIndicar(int idProcesso);
+
+        int FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao);
     }
 }
