@@ -79,6 +79,10 @@ namespace API_Indicacao_Premiada.Controllers
                 var ret = _processoService.FinalizarProcesso(processo);
                 return Ok(ret);
             }
+            catch (InvalidDataException ex)
+            {
+                return BadRequest(ex.Message);
+            }
             catch
             {
                 return StatusCode(500, "Ocorreu um erro interno servidor");

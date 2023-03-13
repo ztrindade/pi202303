@@ -39,17 +39,28 @@ namespace API_Indicacao_Premiada.Repositories
 
         public IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula)
         {
-            string comandoSql = string.Format(@"SELECT Premiacoes.Id,IdProcesso,IdIndicacao,Processos.ValorPremiacao 
+            string comandoSql = string.Format(@"SELECT Premiacoes.Id,Premiacoes.IdProcesso,Premiacoes.IdIndicacao,Premiacoes.ValorPremiacao 
                                                 FROM Premiacoes
-                                                JOIN Processos on 
-                                                Premiacoes.IdProcesso = Processos.Id
-                                                where MatriculaRH = '{0}'", matricula);
+                                                JOIN Indicacoes on 
+                                                Premiacoes.IdIndicacao = Indicacoes.Id
+                                                where MatriculaIndicante = '{0}'", matricula);
 
             _sqlHelper.AbrirConexao();
             var ret = _sqlHelper.ExecutarComando<Premiacao>(comandoSql);
             _sqlHelper.FecharConexao();
 
             return ret;
+        }
+
+        public int ValidarPremiacaoParaIncluir(int idProcesso)
+        {
+            string comandoSql = String.Format("SELECT * FROM Premiacoes where IdProcesso = {0}", idProcesso);
+
+            _sqlHelper.AbrirConexao();
+            var ret = _sqlHelper.ExecutarComando<Premiacao>(comandoSql);
+            _sqlHelper.FecharConexao();
+
+            return ret.Count();
         }
     }
 }

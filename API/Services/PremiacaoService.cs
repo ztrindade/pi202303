@@ -16,6 +16,10 @@ namespace API_Premiacao_Premiada.Services
 
         public int IncluirPremiacao(DTOFinalizarProcesso processoComDadosPremiacao)
         {
+            var retValidacaoPremiacao = ValidarPremiacaoParaIncluir(processoComDadosPremiacao.IdProcesso);
+            if (retValidacaoPremiacao != 0)
+                throw new InvalidDataException("Já existe uma premiaçãoo para o processo informado.");
+            
             return _premiacaoRepositorie.IncluirPremiacao(processoComDadosPremiacao);
         }
 
@@ -27,6 +31,11 @@ namespace API_Premiacao_Premiada.Services
         public IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula)
         {
             return _premiacaoRepositorie.ListarPremiacoesPorMatricula(matricula);
+        }
+
+        public int ValidarPremiacaoParaIncluir(int idProcesso)
+        {
+            return _premiacaoRepositorie.ValidarPremiacaoParaIncluir(idProcesso);
         }
     }
 }

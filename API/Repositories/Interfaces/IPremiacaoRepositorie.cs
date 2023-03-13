@@ -10,5 +10,7 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
         IEnumerable<Premiacao> ListarPremiacoes();
 
         IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula);
+
+        int ValidarPremiacaoParaIncluir(int idProcesso);
     }
 }
