@@ -13,7 +13,9 @@ Instruções para execução da aplicação estática:
 - abrir um prompt de comando na pasta 'indica';
 - efetuar o comando `npm i`;
 - após o fim da execução, efetuar o comando `npm start`;
-- após a mensagem de que a aplicação está carregada, acessar o link http://localhost:4200/ no navegador.
+- após a mensagem de que a aplicação está carregada (console com a mensagem `Compiled successfully`), acessar o link http://localhost:4200/ no navegador.
+
+Se o usuário preferir, pode executar o comando `ng serve --o`, para que o navegador seja acionado automaticamente após o carregamento da aplicação.
 
 O projeto estático contém quatro usuários válidos, conforme descrito na sua página inicial:
 - alexandra
