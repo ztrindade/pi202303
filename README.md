@@ -25,4 +25,6 @@ O projeto estático contém quatro usuários válidos, conforme descrito na sua 
 
 A senha de todos eles é 'teste'. Se for informado um usuário ou senha incorretos, a aplicação exibirá um alerta de credenciais inválidas.
 
+Os usuários com perfil padrão podem somente indicar candidatos em processos em andamento. Assim, é necessário logar primeiro com o usuário `fernanda`, para iniciar pelo menos um processo. O usuário `fernanda` pode também aceitar indicações feitas pelos demais usuários e encerrar os processos, com ou sem indicações aprovadas.
+
 ## API 
