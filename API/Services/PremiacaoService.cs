@@ -18,7 +18,7 @@ namespace API_Premiacao_Premiada.Services
         {
             var retValidacaoPremiacao = ValidarPremiacaoParaIncluir(processoComDadosPremiacao.IdProcesso);
             if (retValidacaoPremiacao != 0)
-                throw new InvalidDataException("Já existe uma premiaçãoo para o processo informado.");
+                throw new InvalidDataException("Já existe uma premiação para o processo informado.");
             
             return _premiacaoRepositorie.IncluirPremiacao(processoComDadosPremiacao);
         }
