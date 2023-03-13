@@ -38,7 +38,7 @@ export class ListaProcessosComponent implements OnInit {
       this.novaIndicacaoForm = this.formBuilder.group({
         linkedin: [''],
         nome: ['', [Validators.required, Validators.minLength(4)]],
-        telefone: ['', [Validators.required , Validators.minLength(8) , Validators.maxLength(9)]],
+        telefone: ['', [Validators.required , Validators.minLength(10) , Validators.maxLength(11)]],
       })
       if (this.tokenService.retornaToken('perfil') === 'adm'){
         this.podeIncluir = true;
