@@ -166,7 +166,10 @@
                         <td>{{indicacao.nomeIndicado}}</td>
                         <td>{{indicacao.telefoneIndicado}}</td>
                         <td>
-                            <a href="{{indicacao.linkedin}}" target="_blank">{{indicacao.linkedin}}</a>
+                            <a href="{{indicacao.linkedin}}" 
+                                *ngIf="indicacao.linkedin !== ''"
+                                target="_blank"><i class="fa fa-linkedin"></i></a>
+                            <span *ngIf="indicacao.linkedin == ''">Não informado</span>
                         </td>
                         <td>
                             <i class="fa fa-thumbs-up" 
