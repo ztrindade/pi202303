@@ -103,7 +103,7 @@ export class ListaProcessosComponent implements OnInit {
       const novaIndicacao = this.novaIndicacaoForm.getRawValue();
       this.listaProcessos.forEach((processo) => {
         if (processo.id === id) {
-          const auxLinkedin = novaIndicacao.linkedin === '' ? '' : `https://www.linkedin.com/in/${novaIndicacao.linkedin}`;
+          const auxLinkedin = (novaIndicacao.linkedin === '' || novaIndicacao.linkedin === null) ? '' : `https://www.linkedin.com/in/${novaIndicacao.linkedin}`;
           const indicacao:Indicacao = {
             aceita: false,
             indicante: this.inputIndicante,
