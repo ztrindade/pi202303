@@ -6,6 +6,7 @@ import { ListaProcessosComponent } from './lista-processos/lista-processos.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MensagemModule } from '../componentes/mensagem/mensagem.module';
 import { CabecalhoModule } from '../componentes/cabecalho/cabecalho.module';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -18,7 +19,11 @@ import { CabecalhoModule } from '../componentes/cabecalho/cabecalho.module';
     FormsModule,
     ReactiveFormsModule,
     MensagemModule,
+    NgxMaskDirective, NgxMaskPipe,
     ProcessosRoutingModule
+  ],
+  providers: [
+    provideNgxMask()
   ]
 })
 export class ProcessosModule { }

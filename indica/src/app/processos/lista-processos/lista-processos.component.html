@@ -164,7 +164,7 @@
                     <tr>
                         <td>{{indicacao.indicante}}</td>
                         <td>{{indicacao.nomeIndicado}}</td>
-                        <td>{{indicacao.telefoneIndicado}}</td>
+                        <td>{{indicacao.telefoneIndicado | mask: '(00) 0000-00009'}}</td>
                         <td>
                             <a href="{{indicacao.linkedin}}" 
                                 *ngIf="indicacao.linkedin !== ''"
@@ -244,6 +244,7 @@
             <input type="text" 
                 placeholder="Telefone do indicado" 
                 class="form-control"
+                mask="(00)0000-00009"
                 formControlName="telefone">
         </div>    
         <app-mensagem 
