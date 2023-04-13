@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qGknlUB9+xywo1G37e02c84ud1pERzd6VqCRscHGZILgD1lX/2wq33tAIgaw1Eu9iqYZIOD5yTjb3ipRFIEDlg==",
+  "dgSpecHash": "u6r8Z7i01XquQaXjY1dJ1oO0L7lvHtQDVVWLcxnanSDreJN3M5a+LPydwhxQXHr7oUAJaScQnlZNcP4saw+wew==",
   "success": true,
-  "projectFilePath": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\API_Indicacao_Premiada\\API_Indicacao_Premiada.csproj",
+  "projectFilePath": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\pi202303\\API\\API_Indicacao_Premiada.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\abner\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\abner\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",

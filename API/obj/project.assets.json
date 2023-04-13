@@ -686,11 +686,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\API_Indicacao_Premiada\\API_Indicacao_Premiada.csproj",
+      "projectUniqueName": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\pi202303\\API\\API_Indicacao_Premiada.csproj",
       "projectName": "API_Indicacao_Premiada",
-      "projectPath": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\API_Indicacao_Premiada\\API_Indicacao_Premiada.csproj",
+      "projectPath": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\pi202303\\API\\API_Indicacao_Premiada.csproj",
       "packagesPath": "C:\\Users\\abner\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\API_Indicacao_Premiada\\obj\\",
+      "outputPath": "C:\\Users\\abner\\OneDrive\\Área de Trabalho\\Pastas\\Projetos\\API_INDICACAO_PREMIADA\\pi202303\\API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
