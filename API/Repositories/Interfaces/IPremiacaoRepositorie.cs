@@ -5,12 +5,12 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
 {
     public interface IPremiacaoRepositorie
     {
-        int IncluirPremiacao(DTOFinalizarProcesso processoComDadosPremiacao);
+        Task<int> IncluirPremiacao(DTOFinalizarProcesso processoComDadosPremiacao);
 
-        IEnumerable<Premiacao> ListarPremiacoes();
+        Task<IEnumerable<Premiacao>> ListarPremiacoes();
 
-        IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula);
+        Task<IEnumerable<Premiacao>> ListarPremiacoesPorMatricula(string matricula);
 
-        int ValidarPremiacaoParaIncluir(int idProcesso);
+        Task<int> ValidarPremiacaoParaIncluir(int idProcesso);
     }
 }

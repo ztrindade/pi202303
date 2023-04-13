@@ -14,48 +14,48 @@ namespace API_Indicacao_Premiada.Repositories
             _sqlHelper = sqlHelper;
         }
 
-        public int IncluirProcesso(DTOIncluirProcesso processo)
+        public async Task<int> IncluirProcesso(DTOIncluirProcesso processo)
         {
             string comandoSql = string.Format(@"INSERT INTO Processos (Empresa,Vaga,MatriculaRH,Status,ValorPremiacao)
                                                 Values('{0}','{1}','{2}','Em Aberto',{3})",
                                                 processo.Empresa, processo.Vaga, processo.MatriculaRH, processo.ValorPremiacao);
 
-            _sqlHelper.AbrirConexao();
-            var ret = _sqlHelper.ExecutarComando(comandoSql);
-            _sqlHelper.FecharConexao();
+            await _sqlHelper.AbrirConexao();
+            var ret = await _sqlHelper.ExecutarComando(comandoSql);
+            await _sqlHelper.FecharConexao();
 
             return ret;
         }
 
-        public IEnumerable<Processo> ListarProcessos()
+        public async Task<IEnumerable<Processo>> ListarProcessos()
         {
             string comandoSql = "SELECT * FROM Processos";
 
-            _sqlHelper.AbrirConexao();
-            var ret = _sqlHelper.ExecutarComando<Processo>(comandoSql);
-            _sqlHelper.FecharConexao();
+            await _sqlHelper.AbrirConexao();
+            var ret = await _sqlHelper.ExecutarComando<Processo>(comandoSql);
+            await _sqlHelper.FecharConexao();
 
             return ret;
         }
 
-        public IEnumerable<Processo> ListarProcessosEmAberto()
+        public async Task<IEnumerable<Processo>> ListarProcessosEmAberto()
         {
             string comandoSql = "SELECT * FROM Processos where Status = 'Em Aberto'";
 
-            _sqlHelper.AbrirConexao();
-            var ret = _sqlHelper.ExecutarComando<Processo>(comandoSql);
-            _sqlHelper.FecharConexao();
+            await _sqlHelper.AbrirConexao();
+            var ret = await _sqlHelper.ExecutarComando<Processo>(comandoSql);
+            await _sqlHelper.FecharConexao();
 
             return ret;
         }
 
-        public int FinalizarProcesso(int id)
+        public async Task<int> FinalizarProcesso(int id)
         {
             string comandoSql = string.Format("UPDATE Processos SET Status = 'Finalizado' where id = {0}", id);
 
-            _sqlHelper.AbrirConexao();
-            var ret = _sqlHelper.ExecutarComando(comandoSql);
-            _sqlHelper.FecharConexao();
+            await _sqlHelper.AbrirConexao();
+            var ret = await _sqlHelper.ExecutarComando(comandoSql);
+            await _sqlHelper.FecharConexao();
 
             return ret;
         }

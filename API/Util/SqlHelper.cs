@@ -17,24 +17,24 @@ namespace API_Indicacao_Premiada.Util
             conexao = new SqlConnection(this.stringConexao);
         }
 
-        public void AbrirConexao()
+        public async Task AbrirConexao()
         {
-            conexao.Open();
+            await conexao.OpenAsync();
         }
 
-        public void FecharConexao()
+        public async Task FecharConexao()
         {
-            conexao.Close();
+            await conexao.CloseAsync();
         }
 
-        public int ExecutarComando(string comando)
+        public async Task<int> ExecutarComando(string comando)
         {
-            return conexao.Execute(comando);
+            return await conexao.ExecuteAsync(comando);
         }
 
-        public IEnumerable<T> ExecutarComando<T>(string comando)
+        public async Task<IEnumerable<T>> ExecutarComando<T>(string comando)
         {
-            return conexao.Query<T>(comando);
+            return await conexao.QueryAsync<T>(comando);
         }
     }
 }

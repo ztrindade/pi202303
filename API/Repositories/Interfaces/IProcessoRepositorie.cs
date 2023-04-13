@@ -5,12 +5,12 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
 {
     public interface IProcessoRepositorie
     {
-        int IncluirProcesso(DTOIncluirProcesso processo);
+        Task<int> IncluirProcesso(DTOIncluirProcesso processo);
 
-        IEnumerable<Processo> ListarProcessos();
+        Task<IEnumerable<Processo>> ListarProcessos();
 
-        int FinalizarProcesso(int id);
+        Task<int> FinalizarProcesso(int id);
 
-        IEnumerable<Processo> ListarProcessosEmAberto();
+        Task<IEnumerable<Processo>> ListarProcessosEmAberto();
     }
 }

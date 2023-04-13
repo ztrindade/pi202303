@@ -2,12 +2,12 @@
 {
     public interface IDBManager
     {
-        void AbrirConexao();
+        Task AbrirConexao();
 
-        void FecharConexao();
+        Task FecharConexao();
 
-        int ExecutarComando(string comando);
+        Task<int> ExecutarComando(string comando);
 
-        IEnumerable<T> ExecutarComando<T>(string comando);
+        Task<IEnumerable<T>> ExecutarComando<T>(string comando);
     }
 }

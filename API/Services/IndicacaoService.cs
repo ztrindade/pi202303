@@ -14,38 +14,38 @@ namespace API_Indicacao_Premiada.Services
             _indicacaoRepositorie = IndicacaoRepositorie;
         }
 
-        public int IncluirIndicacao(DTOIncluirIndicacao indicacao)
+        public async Task<int> IncluirIndicacao(DTOIncluirIndicacao indicacao)
         {
-            var retValidacao = ValidarProcessoParaIndicar(indicacao.IdProcesso);
+            var retValidacao = await ValidarProcessoParaIndicar(indicacao.IdProcesso);
             if (retValidacao == 0)
                 throw new InvalidDataException("Processo já finalizado");
 
-            return _indicacaoRepositorie.IncluirIndicacao(indicacao);
+            return await _indicacaoRepositorie.IncluirIndicacao(indicacao);
         }
 
-        public IEnumerable<Indicacao> ListarIndicacoes()
+        public async Task<IEnumerable<Indicacao>> ListarIndicacoes()
         {
-            return _indicacaoRepositorie.ListarIndicacoes();
+            return await _indicacaoRepositorie.ListarIndicacoes();
         }
 
-        public IEnumerable<Indicacao> ListarIndicacoesPorProcesso(int idProcesso)
+        public async Task<IEnumerable<Indicacao>> ListarIndicacoesPorProcesso(int idProcesso)
         {
-            return _indicacaoRepositorie.ListarIndicacoesPorProcesso(idProcesso);
+            return await _indicacaoRepositorie.ListarIndicacoesPorProcesso(idProcesso);
         }
 
-        public int FinalizarIndicacao(int id)
+        public async Task<int> FinalizarIndicacao(int id)
         {
-            return _indicacaoRepositorie.FinalizarIndicacao(id);
+            return await _indicacaoRepositorie.FinalizarIndicacao(id);
         }
 
-        public int ValidarProcessoParaIndicar(int idProcesso)
+        public async Task<int> ValidarProcessoParaIndicar(int idProcesso)
         {
-            return _indicacaoRepositorie.ValidarProcessoParaIndicar(idProcesso);
+            return await _indicacaoRepositorie.ValidarProcessoParaIndicar(idProcesso);
         }
 
-        public int FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao)
+        public async Task<int> FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao)
         {
-            return _indicacaoRepositorie.FinalizarIndicacoesNaoEscolhidas(idProcesso, idIndicacao);
+            return await _indicacaoRepositorie.FinalizarIndicacoesNaoEscolhidas(idProcesso, idIndicacao);
         }
     }
 }

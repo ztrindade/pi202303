@@ -17,7 +17,7 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpPost]
         [Route("incluir")]
-        public IActionResult IncluirIndicacao([FromBody] DTOIncluirIndicacao indicacao)
+        public async Task<IActionResult> IncluirIndicacao([FromBody] DTOIncluirIndicacao indicacao)
         {
             if (indicacao == null)
             {
@@ -26,7 +26,7 @@ namespace API_Indicacao_Premiada.Controllers
 
             try
             {
-                _indicacaoService.IncluirIndicacao(indicacao);
+                await _indicacaoService.IncluirIndicacao(indicacao);
                 return Ok();
             }
             catch (InvalidDataException ex)
@@ -41,11 +41,11 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpGet]
         [Route("listar")]
-        public IActionResult ListarIndicacoes()
+        public async Task<IActionResult> ListarIndicacoes()
         {
             try
             {
-                var ret = _indicacaoService.ListarIndicacoes();
+                var ret = await _indicacaoService.ListarIndicacoes();
                 return Ok(ret);
             }
             catch
@@ -56,11 +56,11 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpGet]
         [Route("listar/porprocesso/{id}")]
-        public IActionResult ListarIndicacoesPorProcesso(int id)
+        public async Task<IActionResult> ListarIndicacoesPorProcesso(int id)
         {
             try
             {
-                var ret = _indicacaoService.ListarIndicacoesPorProcesso(id);
+                var ret = await _indicacaoService.ListarIndicacoesPorProcesso(id);
                 return Ok(ret);
             }
             catch

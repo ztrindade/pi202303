@@ -18,35 +18,35 @@ namespace API_Indicacao_Premiada.Services
             _premiacaoService = premiacaoService;
         }
 
-        public int IncluirProcesso(DTOIncluirProcesso processo)
+        public async Task<int> IncluirProcesso(DTOIncluirProcesso processo)
         {
-            return _processoRepositorie.IncluirProcesso(processo);
+            return await _processoRepositorie.IncluirProcesso(processo);
         }
 
-        public IEnumerable<Processo> ListarProcessos()
+        public async Task<IEnumerable<Processo>> ListarProcessos()
         {
-            return _processoRepositorie.ListarProcessos();
+            return await _processoRepositorie.ListarProcessos();
         }
 
-        public IEnumerable<Processo> ListarProcessosEmAberto()
+        public async Task<IEnumerable<Processo>> ListarProcessosEmAberto()
         {
-            return _processoRepositorie.ListarProcessosEmAberto();
+            return await _processoRepositorie.ListarProcessosEmAberto();
         }
 
-        public int FinalizarProcesso(DTOFinalizarProcesso processo)
+        public async Task<int> FinalizarProcesso(DTOFinalizarProcesso processo)
         {
-            var retProcesso = _processoRepositorie.FinalizarProcesso(processo.IdProcesso);
+            var retProcesso = await _processoRepositorie.FinalizarProcesso(processo.IdProcesso);
 
             if (retProcesso != 0)
             {
-                var retIndicacao = _indicacaoService.FinalizarIndicacao(processo.IdIndicacao);
+                var retIndicacao = await _indicacaoService.FinalizarIndicacao(processo.IdIndicacao);
 
                 if (retIndicacao != 0)
                 {
-                    var retPremiacao = _premiacaoService.IncluirPremiacao(processo);
+                    var retPremiacao = await _premiacaoService.IncluirPremiacao(processo);
 
                     if (retPremiacao != 0)
-                        _indicacaoService.FinalizarIndicacoesNaoEscolhidas(processo.IdProcesso,processo.IdIndicacao);
+                        await _indicacaoService.FinalizarIndicacoesNaoEscolhidas(processo.IdProcesso, processo.IdIndicacao);
                 }
             }
 

@@ -5,16 +5,16 @@ namespace API_Indicacao_Premiada.Repositories.Interfaces
 {
     public interface IIndicacaoRepositorie
     {
-        int IncluirIndicacao(DTOIncluirIndicacao Indicacao);
+        Task<int> IncluirIndicacao(DTOIncluirIndicacao Indicacao);
 
-        IEnumerable<Indicacao> ListarIndicacoes();
+        Task<IEnumerable<Indicacao>> ListarIndicacoes();
 
-        int FinalizarIndicacao(int id);
+        Task<int> FinalizarIndicacao(int id);
 
-        IEnumerable<Indicacao> ListarIndicacoesPorProcesso(int idProcesso);
+        Task<IEnumerable<Indicacao>> ListarIndicacoesPorProcesso(int idProcesso);
 
-        int ValidarProcessoParaIndicar(int idProcesso);
+        Task<int> ValidarProcessoParaIndicar(int idProcesso);
 
-        int FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao);
+        Task<int> FinalizarIndicacoesNaoEscolhidas(int idProcesso, int idIndicacao);
     }
 }

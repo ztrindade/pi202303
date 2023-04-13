@@ -16,11 +16,11 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpGet]
         [Route("listar/pormatricula/{matricula}")]
-        public IActionResult ListarPremiacoesPorMatricula(string matricula)
+        public async Task<IActionResult> ListarPremiacoesPorMatricula(string matricula)
         {
             try
             {
-                var ret = _premiacaoService.ListarPremiacoesPorMatricula(matricula);
+                var ret = await _premiacaoService.ListarPremiacoesPorMatricula(matricula);
                 return Ok(ret);
             }
             catch
@@ -31,11 +31,11 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpGet]
         [Route("listar")]
-        public IActionResult ListarPremiacoes()
+        public async Task<IActionResult> ListarPremiacoes()
         {
             try
             {
-                var ret = _premiacaoService.ListarPremiacoes();
+                var ret = await _premiacaoService.ListarPremiacoes();
                 return Ok(ret);
             }
             catch

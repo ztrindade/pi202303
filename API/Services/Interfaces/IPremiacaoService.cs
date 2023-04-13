@@ -5,9 +5,10 @@ namespace API_Indicacao_Premiada.Services.Interfaces
 {
     public interface IPremiacaoService
     {
-        int IncluirPremiacao(DTOFinalizarProcesso processo);
+        Task<int> IncluirPremiacao(DTOFinalizarProcesso processo);
 
-        IEnumerable<Premiacao> ListarPremiacoes();
-        IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula);
+        Task<IEnumerable<Premiacao>> ListarPremiacoes();
+
+        Task<IEnumerable<Premiacao>> ListarPremiacoesPorMatricula(string matricula);
     }
 }

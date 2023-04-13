@@ -14,10 +14,10 @@ namespace API_Indicacao_Premiada.Repositories
             _sqlHelper = sqlHelper;
         }
 
-        public int IncluirPremiacao(DTOFinalizarProcesso processoComDadosPremiacao)
+        public Task<int> IncluirPremiacao(DTOFinalizarProcesso processoComDadosPremiacao)
         {
             string comandoSql = string.Format("INSERT INTO Premiacoes (IdProcesso,IdIndicacao,ValorPremiacao) Values('{0}','{1}',{2})",
-                processoComDadosPremiacao.IdProcesso, processoComDadosPremiacao.IdIndicacao,processoComDadosPremiacao.ValorPremiacao);
+                processoComDadosPremiacao.IdProcesso, processoComDadosPremiacao.IdIndicacao, processoComDadosPremiacao.ValorPremiacao);
 
             _sqlHelper.AbrirConexao();
             var ret = _sqlHelper.ExecutarComando(comandoSql);
@@ -26,7 +26,7 @@ namespace API_Indicacao_Premiada.Repositories
             return ret;
         }
 
-        public IEnumerable<Premiacao> ListarPremiacoes()
+        public Task<IEnumerable<Premiacao>> ListarPremiacoes()
         {
             string comandoSql = "SELECT * FROM Premiacoes";
 
@@ -37,11 +37,11 @@ namespace API_Indicacao_Premiada.Repositories
             return ret;
         }
 
-        public IEnumerable<Premiacao> ListarPremiacoesPorMatricula(string matricula)
+        public Task<IEnumerable<Premiacao>> ListarPremiacoesPorMatricula(string matricula)
         {
-            string comandoSql = string.Format(@"SELECT Premiacoes.Id,Premiacoes.IdProcesso,Premiacoes.IdIndicacao,Premiacoes.ValorPremiacao 
+            string comandoSql = string.Format(@"SELECT Premiacoes.Id,Premiacoes.IdProcesso,Premiacoes.IdIndicacao,Premiacoes.ValorPremiacao
                                                 FROM Premiacoes
-                                                JOIN Indicacoes on 
+                                                JOIN Indicacoes on
                                                 Premiacoes.IdIndicacao = Indicacoes.Id
                                                 where MatriculaIndicante = '{0}'", matricula);
 
@@ -52,13 +52,13 @@ namespace API_Indicacao_Premiada.Repositories
             return ret;
         }
 
-        public int ValidarPremiacaoParaIncluir(int idProcesso)
+        public async Task<int> ValidarPremiacaoParaIncluir(int idProcesso)
         {
             string comandoSql = String.Format("SELECT * FROM Premiacoes where IdProcesso = {0}", idProcesso);
 
-            _sqlHelper.AbrirConexao();
-            var ret = _sqlHelper.ExecutarComando<Premiacao>(comandoSql);
-            _sqlHelper.FecharConexao();
+            await _sqlHelper.AbrirConexao();
+            var ret = await _sqlHelper.ExecutarComando<Premiacao>(comandoSql);
+            await _sqlHelper.FecharConexao();
 
             return ret.Count();
         }

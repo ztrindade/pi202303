@@ -17,7 +17,7 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpPost]
         [Route("incluir")]
-        public IActionResult IncluirProcesso([FromBody] DTOIncluirProcesso processo)
+        public async Task<IActionResult> IncluirProcesso([FromBody] DTOIncluirProcesso processo)
         {
             if (processo == null)
             {
@@ -26,7 +26,7 @@ namespace API_Indicacao_Premiada.Controllers
 
             try
             {
-                _processoService.IncluirProcesso(processo);
+                await _processoService.IncluirProcesso(processo);
                 return Ok();
             }
             catch
@@ -37,11 +37,11 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpGet]
         [Route("listar")]
-        public IActionResult ListarProcessos()
+        public async Task<IActionResult> ListarProcessos()
         {
             try
             {
-                var ret = _processoService.ListarProcessos();
+                var ret = await _processoService.ListarProcessos();
                 return Ok(ret);
             }
             catch
@@ -52,11 +52,11 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpGet]
         [Route("listar/iniciados")]
-        public IActionResult ListarProcessosEmAberto()
+        public async Task<IActionResult> ListarProcessosEmAberto()
         {
             try
             {
-                var ret = _processoService.ListarProcessosEmAberto();
+                var ret = await _processoService.ListarProcessosEmAberto();
                 return Ok(ret);
             }
             catch
@@ -67,7 +67,7 @@ namespace API_Indicacao_Premiada.Controllers
 
         [HttpPost]
         [Route("finalizar")]
-        public IActionResult FinalizarProcesso([FromBody] DTOFinalizarProcesso processo)
+        public async Task<IActionResult> FinalizarProcesso([FromBody] DTOFinalizarProcesso processo)
         {
             if (processo == null)
             {
@@ -76,7 +76,7 @@ namespace API_Indicacao_Premiada.Controllers
 
             try
             {
-                var ret = _processoService.FinalizarProcesso(processo);
+                var ret = await _processoService.FinalizarProcesso(processo);
                 return Ok(ret);
             }
             catch (InvalidDataException ex)
