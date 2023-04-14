@@ -20,9 +20,7 @@ namespace API_Indicacao_Premiada.Repositories
                                                 Values('{0}','{1}','{2}','Em Aberto',{3})",
                                                 processo.Empresa, processo.Vaga, processo.MatriculaRH, processo.ValorPremiacao);
 
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -31,9 +29,7 @@ namespace API_Indicacao_Premiada.Repositories
         {
             string comandoSql = "SELECT * FROM Processos";
 
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando<Processo>(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -41,10 +37,7 @@ namespace API_Indicacao_Premiada.Repositories
         public async Task<IEnumerable<Processo>> ListarProcessosEmAberto()
         {
             string comandoSql = "SELECT * FROM Processos where Status = 'Em Aberto'";
-
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando<Processo>(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -52,10 +45,7 @@ namespace API_Indicacao_Premiada.Repositories
         public async Task<int> FinalizarProcesso(int id)
         {
             string comandoSql = string.Format("UPDATE Processos SET Status = 'Finalizado' where id = {0}", id);
-
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }

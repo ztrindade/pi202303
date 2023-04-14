@@ -2,11 +2,7 @@
 {
     public interface IDBManager
     {
-        Task AbrirConexao();
-
-        Task FecharConexao();
-
-        Task<int> ExecutarComando(string comando);
+        Task<int> ExecutarComando(string comando, object? parametros = null);
 
         Task<IEnumerable<T>> ExecutarComando<T>(string comando);
     }

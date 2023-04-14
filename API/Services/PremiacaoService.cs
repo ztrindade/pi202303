@@ -16,11 +16,21 @@ namespace API_Premiacao_Premiada.Services
 
         public async Task<int> IncluirPremiacao(DTOFinalizarProcesso processoComDadosPremiacao)
         {
-            var retValidacaoPremiacao = await ValidarPremiacaoParaIncluir(processoComDadosPremiacao.IdProcesso);
-            if (retValidacaoPremiacao != 0)
-                throw new InvalidDataException("Já existe uma premiação para o processo informado.");
+            try
+            {
+                var retValidacaoPremiacao = await ValidarPremiacaoParaIncluir(processoComDadosPremiacao.IdProcesso);
+                if (retValidacaoPremiacao != 0)
+                    throw new InvalidDataException("Já existe uma premiação para o processo informado.");
 
-            return await _premiacaoRepositorie.IncluirPremiacao(processoComDadosPremiacao);
+                DTOIncluirPremiacao premiacao = new DTOIncluirPremiacao();
+                await PopularPremiacao(premiacao, processoComDadosPremiacao);
+
+                return await _premiacaoRepositorie.IncluirPremiacao(premiacao);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<IEnumerable<Premiacao>> ListarPremiacoes()
@@ -33,9 +43,23 @@ namespace API_Premiacao_Premiada.Services
             return await _premiacaoRepositorie.ListarPremiacoesPorMatricula(matricula);
         }
 
-        public async Task<int> ValidarPremiacaoParaIncluir(int idProcesso)
+        private async Task<int> ValidarPremiacaoParaIncluir(int idProcesso)
         {
             return await _premiacaoRepositorie.ValidarPremiacaoParaIncluir(idProcesso);
+        }
+
+        private async Task PopularPremiacao(DTOIncluirPremiacao dTOIncluirPremiacao, DTOFinalizarProcesso dTOFinalizarProcesso)
+        {
+            try
+            {
+                dTOIncluirPremiacao.IdProcesso = dTOFinalizarProcesso.IdProcesso;
+                dTOIncluirPremiacao.IdIndicacao = dTOFinalizarProcesso.IdIndicacao;
+                dTOIncluirPremiacao.ValorPremiacao = await _premiacaoRepositorie.ObterValorPremicao(dTOFinalizarProcesso.IdProcesso);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

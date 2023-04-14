@@ -20,9 +20,7 @@ namespace API_Indicacao_Premiada.Repositories
                 "INSERT INTO Indicacoes (NomeIndicado,TelefoneIndicado,IdProcesso,MatriculaIndicante,Linkedin,Status) Values('{0}','{1}',{2},'{3}','{4}','Indicado')",
                 indicacao.NomeIndicado, indicacao.TelefoneIndicado, indicacao.IdProcesso, indicacao.MatriculaIndicante, indicacao.Linkedin);
 
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -30,10 +28,7 @@ namespace API_Indicacao_Premiada.Repositories
         public async Task<IEnumerable<Indicacao>> ListarIndicacoes()
         {
             string comandoSql = "SELECT * FROM Indicacoes";
-
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando<Indicacao>(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -41,10 +36,7 @@ namespace API_Indicacao_Premiada.Repositories
         public async Task<IEnumerable<Indicacao>> ListarIndicacoesPorProcesso(int idProcesso)
         {
             string comandoSql = string.Format("SELECT * FROM Indicacoes where IdProcesso = {0}", idProcesso);
-
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando<Indicacao>(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -52,10 +44,7 @@ namespace API_Indicacao_Premiada.Repositories
         public async Task<int> FinalizarIndicacao(int id)
         {
             string comandoSql = string.Format("UPDATE Indicacoes SET Status = 'Premiada' where id = {0}", id);
-
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -66,9 +55,7 @@ namespace API_Indicacao_Premiada.Repositories
                                                 where IdProcesso = {0} AND Id <> {1}",
                                                 idProcesso, idIndicacao);
 
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret;
         }
@@ -79,9 +66,7 @@ namespace API_Indicacao_Premiada.Repositories
                                                 where Status = 'Em Aberto' AND id = {0}",
                                                 idProcesso);
 
-            await _sqlHelper.AbrirConexao();
             var ret = await _sqlHelper.ExecutarComando<Processo>(comandoSql);
-            await _sqlHelper.FecharConexao();
 
             return ret.Count();
         }

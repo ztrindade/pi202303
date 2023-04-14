@@ -4,6 +4,5 @@
     {
         public int IdProcesso { get; set; }
         public int IdIndicacao { get; set; }
-        public decimal? ValorPremiacao { get; set; }
     }
 }
